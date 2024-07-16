@@ -1,13 +1,13 @@
-import './global.css'
-import type { Metadata } from 'next'
-import localFont from 'next/font/local'
-import { Navbar } from './components/nav'
-import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/next'
-import Footer from './components/footer'
-import { baseUrl } from './sitemap'
-import Cursor from './components/cursor'
-import { ThemeProvider } from 'next-themes'
+import './global.css';
+import type { Metadata } from 'next';
+import localFont from 'next/font/local';
+import { Navbar } from './components/nav';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import Footer from './components/footer';
+import { baseUrl } from './sitemap';
+import Cursor from './components/cursor';
+import { ThemeProvider } from 'next-themes';
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -35,9 +35,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-}
+};
 
-const cx = (...classes) => classes.filter(Boolean).join(' ')
+const cx = (...classes) => classes.filter(Boolean).join(' ');
 
 const cmun = localFont({
   src: [
@@ -62,32 +62,23 @@ const cmun = localFont({
       style: 'italic',
     },
   ],
-})
+});
 
-export default function RootLayout(
-  {children,}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={cx(
-        'text-black bg-white dark:text-white dark:bg-black',
-        cmun.className
-      )}
-    >
+    <html lang="en" className={cx('text-black bg-white dark:text-white dark:bg-black', cmun.className)}>
       <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
-        <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
-        <ThemeProvider attribute="class">
-        <Cursor />
-        <Navbar />
-          {children}
-        <Footer />
-        <Analytics />
-        <SpeedInsights />
-        </ThemeProvider>
-        </main>
+          <ThemeProvider attribute="class">
+            <Cursor />
+            <Navbar />
+            <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
+              {children}
+            </main>
+            <Footer />
+            <Analytics />
+            <SpeedInsights />
+          </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
