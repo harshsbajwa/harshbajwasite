@@ -38,7 +38,20 @@
 
 * {
   box-sizing: border-box;
-  cursor: none;
+}
+
+.cursor {
+  position: fixed;
+  left: 8px;
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background-color: white;
+  mix-blend-mode: difference;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 1000%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -59,34 +72,6 @@ html {
   color: var(--text-color);
 }
 
-.cursor {
-  position: fixed;
-  left: 8px;
-  top: 8px;
-  width: 16px;
-  height: 16px;
-  border-radius: 8px;
-  background-color: white;
-  mix-blend-mode: difference;
-  z-index: 999;
-  pointer-events: none;
-  opacity: 100%;
-}
-
-.cursor-aura {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
-  mix-blend-mode: difference;
-  z-index: 998;
-  pointer-events: none;
-  opacity: 25%;
-  background: radial-gradient(white, #3984ff00 125%);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.85); 
-}
 
 .prose .anchor {
   @apply absolute invisible no-underline;
@@ -202,4 +187,29 @@ table {
 
 .title {
   text-wrap: balance;
+}
+
+.nav{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #0f0f0f;
+  .container{
+      display: flex;
+      svg{
+          height: 50px;
+          padding: 50px;
+          fill: #c8bdb0;
+          transition: fill 0.2s;
+          cursor: pointer;
+          &:hover{
+              fill: #ec4e39;
+          }
+      }
+  }
+  p{
+      color:#494136;
+  }
 }

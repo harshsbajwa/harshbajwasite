@@ -6,21 +6,20 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Footer from './components/footer';
 import { baseUrl } from './sitemap';
-import Cursor from './components/cursor';
 import { ThemeProvider } from 'next-themes';
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'Next.js Portfolio Starter',
+    default: 'harsh bajwa.',
     template: '%s | Next.js Portfolio Starter',
   },
-  description: 'This is my portfolio.',
+  description: 'harsh bajwa.',
   openGraph: {
-    title: 'My Portfolio',
-    description: 'This is my portfolio.',
+    title: 'harsh bajwa.',
+    description: 'the site of harsh bajwa.',
     url: baseUrl,
-    siteName: 'My Portfolio',
+    siteName: 'harshbajwa',
     locale: 'en_US',
     type: 'website',
   },
@@ -67,11 +66,10 @@ const cmun = localFont({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={cx('text-black bg-white dark:text-white dark:bg-black', cmun.className)}>
-      <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
+      <body className="">
           <ThemeProvider attribute="class">
-            <Cursor />
             <Navbar />
-            <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
+            <main className="">
               {children}
             </main>
             <Footer />

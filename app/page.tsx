@@ -1,17 +1,18 @@
-import { BlogPosts } from "./components/posts";
+'use client';
+
+import React from 'react'
+import Cursor from "./components/cursor";
+import { useState } from 'react';
 
 export default function Page() {
-  return (
-    <section>
-      <p className="text-4xl mb-8">
-        harsh bajwa
-      </p>
-      <p className='text-2xl mb-4'>
-        coming soon.
-      </p>
-      <div className="my-8">
-        <BlogPosts />
-      </div>
-    </section>
-  );
+    const [isActive, setIsActive] = useState(false);
+
+    return (
+        <div className=''>
+            <h1 onMouseOver={() => {setIsActive(true)}} onMouseLeave={() => {setIsActive(false)}} className="text-6xl z-999">
+                hi, my name is harsh.
+            </h1>
+            <Cursor isActive={isActive}/>
+        </div>
+    )
 }
