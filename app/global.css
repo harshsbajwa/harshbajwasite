@@ -38,20 +38,7 @@
 
 * {
   box-sizing: border-box;
-}
-
-.cursor {
-  position: fixed;
-  left: 8px;
-  top: 8px;
-  width: 16px;
-  height: 16px;
-  border-radius: 8px;
-  background-color: white;
-  mix-blend-mode: difference;
-  z-index: 999;
-  pointer-events: none;
-  opacity: 1000%;
+  cursor: none;
 }
 
 @media (prefers-color-scheme: dark) {

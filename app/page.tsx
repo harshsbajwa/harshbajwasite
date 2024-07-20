@@ -8,8 +8,8 @@ export default function Page() {
     const [isActive, setIsActive] = useState(false);
 
     return (
-        <div className=''>
-            <h1 onMouseOver={() => {setIsActive(true)}} onMouseLeave={() => {setIsActive(false)}} className="text-6xl z-999">
+        <div className='flex'>
+            <h1 onMouseOver={() => {setIsActive(true)}} onMouseLeave={() => {setIsActive(false)}} className="text-8xl z-999">
                 hi, my name is harsh.
             </h1>
             <Cursor isActive={isActive}/>

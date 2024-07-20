@@ -1,93 +1,82 @@
-'use client';
+"use client";
 
-import React, { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
+import { useEffect } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
-const colors = [
-    "#356fdb",
-    "#457ec4",
-    "#f5c63f",
-    "#c32d27",
-];
+const variants = {
+  hover: { 
+    top: -100,
+    left: -100,
+    width: 200,
+    height: 200
+  },
+  inactive: { 
+    top: -8,
+    left: -8,    
+    width: 16,
+    height: 16
+  },
+}
 
 export default function Cursor({ isActive }) {
-    const mousePos = useRef({ x: 0, y: 0 });
-    const cursorRef = useRef(null);
-    const circlesRef = useRef([]);
-    const [circleSizes, setCircleSizes] = useState([]);
+  const cursorX = useMotionValue(0);
+  const cursorY = useMotionValue(0);
 
-    const lerp = (x, y, a) => x * (1 - a) + y * a;
+  const springConfig = { damping: 15, stiffness: 200, mass: 0.5 };
+  const cursorXSpring = useSpring(cursorX, springConfig);
+  const cursorYSpring = useSpring(cursorY, springConfig);
 
-    const manageMouseMove = (e) => {
-        mousePos.current = { x: e.clientX, y: e.clientY };
+  useEffect(() => {
+    const moveCursor = (e) => {
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
     };
 
-    const animate = () => {
-        const { x, y } = mousePos.current;
-        const currentX = parseFloat(cursorRef.current.style.left || 0);
-        const currentY = parseFloat(cursorRef.current.style.top || 0);
-        const newCursorX = lerp(currentX, x, 1); // Increase lerp factor for faster movement
-        const newCursorY = lerp(currentY, y, 1); // Increase lerp factor for faster movement
+    window.addEventListener("mousemove", moveCursor);
 
-        gsap.set(cursorRef.current, { x: newCursorX, y: newCursorY });
-
-        circlesRef.current.forEach((circle, i) => {
-            const delayFactor = 0.5 * (i + 1); // Decrease delay factor for more responsive movement
-            gsap.to(circle, { x: newCursorX, y: newCursorY, duration: delayFactor });
-        });
-
-        requestAnimationFrame(animate);
+    return () => {
+      window.removeEventListener("mousemove", moveCursor);
     };
+  }, [cursorX, cursorY]);
 
-    useEffect(() => {
-        window.addEventListener('mousemove', manageMouseMove);
-        requestAnimationFrame(animate);
-
-        return () => {
-            window.removeEventListener('mousemove', manageMouseMove);
-        };
-    }, []);
-
-    useEffect(() => {
-        const newSizes = [...Array(4)].map(() => (isActive ? 200 : 30));
-        setCircleSizes(newSizes);
-    }, [isActive]);
-
-    return (
-        <div className=''>
-            {circleSizes.map((size, i) => (
-                <div
-                    className='fixed rounded-full mix-blend-difference pointer-events-none'
-                    key={i}
-                    ref={ref => circlesRef.current[i] = ref}
-                    style={{
-                        backgroundColor: colors[i],
-                        width: size,
-                        height: size,
-                        filter: `blur(${isActive ? 20 : 2}px)`,
-                        transition: `width 0.3s ease-out, height 0.3s ease-out, filter 0.3s ease-out`,
-                        position: 'fixed',
-                        left: '0%',
-                        top: '0%',
-                        transform: 'translate(-50%, -50%)',
-                    }}
-                />
-            ))}
-            <div
-                ref={cursorRef}
-                style={{
-                    backgroundColor: "#ffffff",
-                    width: '12px',
-                    height: '12px',
-                    filter: `blur(${isActive ? 30 : 0}px)`,
-                    transition: `height 0.3s ease-out, width 0.3s ease-out, filter 0.3s ease-out`,
-                    position: 'fixed',
-                    left: '0%',
-                    top: '0%',
-                    transform: 'translate(-50%, -50%)',
-                }}
-                className='fixed rounded-full mix-blend-difference pointer-events-none'
-            />
-        </div>
-    );
+  return (
+    <>
+      <motion.div
+        animate={isActive ? "hover" : "inactive"}
+        transition={{ type: "tween", ease: "backOut", duration:0.75}}
+        variants={variants}
+        style={{
+          translateX: cursorXSpring,
+          translateY: cursorYSpring,
+          backgroundColor: "#FFFFFF",
+          zIndex: 999,
+          position: 'fixed',
+          borderRadius: '50%',
+          mixBlendMode: 'difference',
+          pointerEvents: 'none',
+        }}
+      />
+      {!isActive && (
+      <motion.div
+        style={{
+          translateX: cursorXSpring,
+          translateY: cursorYSpring,
+          backgroundColor: "#FFFFFF",
+          width: 32,
+          height: 32,
+          zIndex: 1,
+          background: 'radial-gradient(white, #3984ff00 125%)',
+          opacity: '33%',
+          boxShadow: '0 0 8px rgba(255, 255, 255, 0.9)',
+          position: 'fixed',
+          top: -16,
+          left: -16,
+          borderRadius: '50%',
+          mixBlendMode: 'difference',
+          pointerEvents: 'none'
+        }}
+      />
+      )}
+    </>
+  );
 }

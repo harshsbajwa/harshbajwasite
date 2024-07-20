@@ -1,3 +1,4 @@
+import Cursor from 'app/components/cursor'
 import { BlogPosts } from 'app/components/posts'
 
 export const metadata = {
@@ -8,6 +9,7 @@ export const metadata = {
 export default function Page() {
   return (
     <section>
+      <Cursor isActive={false}/>
       <h1 className="font-semibold text-2xl mb-8 tracking-tighter">My Blog</h1>
       <BlogPosts />
     </section>

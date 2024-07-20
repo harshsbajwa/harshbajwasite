@@ -23,7 +23,7 @@ export function Navbar() {
   };
 
   return (
-    <aside className="mb-16 tracking-tight">
+    <aside className="mb-32 tracking-tight">
       <div className="lg:sticky lg:top-20">
         <nav className="flex items-center justify-between relative pb-1 fade md:overflow-auto md:relative" id="nav">
           <div className="flex flex-row space-x-12">
@@ -45,7 +45,7 @@ export function Navbar() {
               <img
                 src={`/icons/${theme === 'dark' ? 'sun.svg' : 'moon.svg'}`}
                 alt={theme === 'dark' ? 'Sun Icon' : 'Moon Icon'}
-                className={`h-8 w-8 transition-opacity duration-1500 ease-in-out ${theme === 'dark' ? 'opacity-100' : 'opacity-0'}`}
+                className={`h-8 w-8 transition-opacity duration-1500 ease-in-out  ${theme === 'dark' ? 'opacity-100' : 'opacity-0'}`}
               />
               <img
                 src={`/icons/${theme === 'dark' ? 'moon.svg' : 'sun.svg'}`}
